@@ -6,7 +6,7 @@ from game.level import Level
 
 # Initialize Pygame
 pygame.init()
-
+# pelkkä kommentti githubiin
 # Constants
 WIDTH, HEIGHT = 800, 600
 FPS = 60
