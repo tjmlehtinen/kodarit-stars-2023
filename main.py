@@ -3,6 +3,7 @@
 import pygame
 from game.player import Player
 from game.level import Level
+from menus.start_menu import StartMenu
 
 # Initialize Pygame
 pygame.init()
@@ -14,6 +15,9 @@ FPS = 60
 # Create the game window
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Platformer Game")
+
+# Create a StartMenu instance
+start_menu = StartMenu()
 
 # Create the player
 player = Player(WIDTH // 2, HEIGHT // 2)
@@ -27,26 +31,33 @@ level2 = Level(player, "./levels/level1.json")
 
 # Game loop
 clock = pygame.time.Clock()
-current_level = level1  # Start with the first level
+current_level = None  # Start with the first level
 
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-    # Game logic
-    player.update()
-    current_level.update()
-
-    
+    # Check for input in the start menu
+    menu_action = start_menu.handle_input(event)
+    if menu_action == "start_game":
+        # Start the game or transition to the first level
+        current_level = level1
+    elif menu_action == "quit":
+        running = False  # Quit the game
 
     # Clear the screen
-    screen.fill((255, 255, 255))
+    screen.fill((0, 0, 0))
 
-    # Draw game elements
-    all_sprites.draw(screen)
-    current_level.draw(screen)
+    if current_level is None:
+        # Render the start menu
+        start_menu.draw(screen)
+    else:
+        # Render the current game level
+        player.update()
+        current_level.update()
+        current_level.draw(screen)
+        all_sprites.draw(screen)
 
     pygame.display.flip()
     clock.tick(FPS)
