@@ -3,11 +3,12 @@
 import pygame
 from game.player import Player
 from game.level import Level
+from states.game_state_manager import GameStateManager
 from menus.start_menu import StartMenu
 
 # Initialize Pygame
 pygame.init()
-# pelkkä kommentti githubiin
+
 # Constants
 WIDTH, HEIGHT = 800, 600
 FPS = 60
@@ -35,7 +36,8 @@ current_level = None  # Start with the first level
 
 running = True
 while running:
-    for event in pygame.event.get():
+    events = pygame.event.get()
+    for event in events:
         if event.type == pygame.QUIT:
             running = False
     # Check for input in the start menu
@@ -46,18 +48,14 @@ while running:
     elif menu_action == "quit":
         running = False  # Quit the game
 
+    # Update the current game state
+    game_state_manager.update(events)
+
     # Clear the screen
     screen.fill((0, 0, 0))
 
-    if current_level is None:
-        # Render the start menu
-        start_menu.draw(screen)
-    else:
-        # Render the current game level
-        player.update()
-        current_level.update()
-        current_level.draw(screen)
-        all_sprites.draw(screen)
+    # Draw the current game state
+    game_state_manager.draw(screen)
 
     pygame.display.flip()
     clock.tick(FPS)

@@ -1,8 +1,8 @@
 import pygame
 
 class MenuState:
-    def __init__(self):
-        self.start_menu = StartMenu()
+    def __init__(self, menu):
+        self.menu = menu
 
     def setup(self):
         pass
@@ -10,13 +10,10 @@ class MenuState:
     def cleanup(self):
         pass
 
-    def update(self):
-        pass
+    def update(self, events):
+        for event in events:
+            action = self.menu.handle_input(event)
 
     def draw(self, screen):
         self.start_menu.draw(screen)
-        action = self.start_menu.handle_input()
-        if action == "start_game":
-            game_state_manager.change_state(LevelState())
-        elif action == "quit":
-            pygame.quit()
+        
