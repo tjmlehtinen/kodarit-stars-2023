@@ -17,6 +17,9 @@ FPS = 60
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Platformer Game")
 
+# Create a game state manager
+game_state_manager = GameStateManager()
+
 # Create a StartMenu instance
 start_menu = StartMenu()
 
