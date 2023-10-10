@@ -1,4 +1,3 @@
-import pygame
 
 class LevelState:
     def __init__(self, level):
@@ -15,3 +14,4 @@ class LevelState:
 
     def draw(self, screen):
         self.current_level.draw(screen)
+        

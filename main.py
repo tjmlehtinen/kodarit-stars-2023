@@ -2,8 +2,8 @@
 
 import pygame
 from game.player import Player
-from game.level import Level
 from states.game_state_manager import GameStateManager
+from states.menu_state import MenuState
 from menus.start_menu import StartMenu
 
 # Initialize Pygame
@@ -20,8 +20,9 @@ pygame.display.set_caption("Platformer Game")
 # Create a game state manager
 game_state_manager = GameStateManager()
 
-# Create a StartMenu instance
-start_menu = StartMenu()
+# Set state to start menu
+game_state_manager.change_state(MenuState(StartMenu(), game_state_manager.process_menu_action))
+
 
 # Create the player
 player = Player(WIDTH // 2, HEIGHT // 2)
@@ -43,19 +44,9 @@ while running:
     for event in events:
         if event.type == pygame.QUIT:
             running = False
-    # Check for input in the start menu
-    menu_action = start_menu.handle_input(event)
-    if menu_action == "start_game":
-        # Start the game or transition to the first level
-        current_level = level1
-    elif menu_action == "quit":
-        running = False  # Quit the game
 
     # Update the current game state
     game_state_manager.update(events)
-
-    # Clear the screen
-    screen.fill((0, 0, 0))
 
     # Draw the current game state
     game_state_manager.draw(screen)

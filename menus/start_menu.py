@@ -11,6 +11,7 @@ class StartMenu:
         self.selected_color = (255, 0, 0)  # Color for the selected option
 
     def draw(self, screen):
+        screen.fill((100, 80, 80))
         screen.blit(self.title, (200, 100))
         screen.blit(self.start_option, (300, 200))
         screen.blit(self.quit_option, (300, 250))

@@ -5,10 +5,9 @@ import json
 from game.platform import Platform 
 
 class Level:
-    def __init__(self, player, level_data):
-        self.player = player
+    def __init__(self, level_data, player):
         self.platforms = pygame.sprite.Group()
-        
+        self.all_sprites = pygame.sprite.Group(player)
         # Load level data from JSON
         self.load_level_data(level_data)
 
@@ -29,3 +28,4 @@ class Level:
     def draw(self, screen):
         # Draw level-specific elements (platforms, enemies).
         self.platforms.draw(screen)
+        self.all_sprites.draw(screen)
