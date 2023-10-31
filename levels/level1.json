@@ -1,4 +1,5 @@
 {
+    "player_start": {"x": 100, "y": 100},
     "platforms": [
         {"x": 200, "y": 500, "width": 100, "height": 10},
         {"x": 400, "y": 400, "width": 100, "height": 10},

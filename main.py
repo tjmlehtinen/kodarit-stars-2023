@@ -25,7 +25,6 @@ game_state_manager.change_state(MenuState(StartMenu(), game_state_manager.proces
 
 # Game loop
 clock = pygame.time.Clock()
-current_level = None  # Start with the first level
 
 running = True
 while running:

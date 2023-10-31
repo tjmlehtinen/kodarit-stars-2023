@@ -6,8 +6,6 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.Surface((40, 40))
         self.image.fill((0, 0, 255))  # Blue color for the player (customize as needed)
         self.rect = self.image.get_rect()
-        self.rect.x = 100
-        self.rect.y = 100
         self.velocity = pygame.Vector2(0, 0)
         self.jump_power = -15
         self.on_ground = False
@@ -27,6 +25,9 @@ class Player(pygame.sprite.Sprite):
             self.velocity.y += 1  # Simulate gravity
         self.rect.move_ip(self.velocity.x, self.velocity.y)
 
+    def set_position(self, x, y):
+        self.rect.x = x
+        self.rect.y = y
 
     def jump(self):
         if self.on_ground:

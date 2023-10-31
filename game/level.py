@@ -20,6 +20,10 @@ class Level:
         for platform_data in data["platforms"]:
             platform = Platform(platform_data["x"], platform_data["y"], platform_data["width"], platform_data["height"])
             self.platforms.add(platform)
+        
+        # Player to starting position
+        start_pos = data["player_start"]
+        self.player.set_position(start_pos["x"], start_pos["y"])
 
 
     def update(self, events):
