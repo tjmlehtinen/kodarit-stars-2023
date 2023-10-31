@@ -23,17 +23,6 @@ game_state_manager = GameStateManager()
 # Set state to start menu
 game_state_manager.change_state(MenuState(StartMenu(), game_state_manager.process_menu_action))
 
-
-# Create the player
-player = Player(WIDTH // 2, HEIGHT // 2)
-
-# Create the group for sprites
-all_sprites = pygame.sprite.Group(player)
-
-# Create levels
-level1 = Level(player, "./levels/level1.json")
-level2 = Level(player, "./levels/level1.json")
-
 # Game loop
 clock = pygame.time.Clock()
 current_level = None  # Start with the first level

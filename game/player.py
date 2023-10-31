@@ -1,13 +1,13 @@
 import pygame
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self):
         super().__init__()
-        self.image = pygame.Surface((40, 60))
+        self.image = pygame.Surface((40, 40))
         self.image.fill((0, 0, 255))  # Blue color for the player (customize as needed)
         self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect.x = 100
+        self.rect.y = 100
         self.velocity = pygame.Vector2(0, 0)
         self.jump_power = -15
         self.on_ground = False
@@ -21,24 +21,26 @@ class Player(pygame.sprite.Sprite):
             self.velocity.x = 5
         else:
             self.velocity.x = 0
-
-        self.velocity.y += 1  # Simulate gravity
+        if keys[pygame.K_SPACE]:
+            self.jump()
+        if not self.on_ground:
+            self.velocity.y += 1  # Simulate gravity
         self.rect.move_ip(self.velocity.x, self.velocity.y)
 
-        # Keep player within screen bounds
-        self.rect.left = max(0, self.rect.left)
-        self.rect.right = min(800, self.rect.right)  # Assuming a screen width of 800
-        self.rect.top = max(0, self.rect.top)
-        self.rect.bottom = min(600, self.rect.bottom)  # Assuming a screen height of 600
-
-        # Check if the player is on the ground
-        if self.rect.bottom >= 600:  # Assuming a screen height of 600
-            self.rect.bottom = 600
-            self.velocity.y = 0
-            self.on_ground = True
-        else:
-            self.on_ground = False
 
     def jump(self):
         if self.on_ground:
             self.velocity.y = self.jump_power
+
+    def check_platform_collision(self, platforms):
+        for platform in platforms:
+            if self.rect.colliderect(platform.rect):
+                # Player is colliding with the platform
+                # You might want to adjust the collision behavior (e.g., stop falling, set on_ground flag, etc.)
+                self.rect.bottom = platform.rect.top # Snap player's bottom to the platform's top
+                self.velocity.y = 0  # Stop vertical movement
+                # Additional collision handling logic
+                self.on_ground = True
+                return True
+        self.on_ground = False
+        return False

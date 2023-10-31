@@ -1,10 +1,8 @@
 import pygame
 import sys
 from states.level_state import LevelState
-from game.level import Level
-# Create levels
-level1 = Level(player, "./levels/level1.json")
-level2 = Level(player, "./levels/level1.json")
+from game.player import Player
+
 
 class GameStateManager:
     def __init__(self):
@@ -26,7 +24,7 @@ class GameStateManager:
     
     def process_menu_action(self, action):
         if action == "start_game":
-            self.change_state(LevelState(level1))
+            self.change_state(LevelState("./levels/level1.json", Player()))
         elif action == "quit":
             pygame.quit()
             sys.exit()

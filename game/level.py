@@ -7,7 +7,8 @@ from game.platform import Platform
 class Level:
     def __init__(self, level_data, player):
         self.platforms = pygame.sprite.Group()
-        self.all_sprites = pygame.sprite.Group(player)
+        self.player = player
+        self.all_sprites = pygame.sprite.Group(self.player)
         # Load level data from JSON
         self.load_level_data(level_data)
 
@@ -21,11 +22,13 @@ class Level:
             self.platforms.add(platform)
 
 
-    def update(self):
+    def update(self, events):
         # Update level-specific logic (e.g., enemy AI).
-        pass
+        self.player.check_platform_collision(self.platforms)
+        self.all_sprites.update()
 
     def draw(self, screen):
+        screen.fill((0,0,0))
         # Draw level-specific elements (platforms, enemies).
         self.platforms.draw(screen)
         self.all_sprites.draw(screen)
