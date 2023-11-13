@@ -29,6 +29,9 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
+    def get_position(self):
+        return (self.rect.x, self.rect.y)
+
     def jump(self):
         if self.on_ground:
             self.velocity.y = self.jump_power

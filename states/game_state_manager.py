@@ -3,7 +3,6 @@ import sys
 from states.level_state import LevelState
 from game.player import Player
 
-
 class GameStateManager:
     def __init__(self):
         self.current_state = None
@@ -24,7 +23,14 @@ class GameStateManager:
     
     def process_menu_action(self, action):
         if action == "start_game":
-            self.change_state(LevelState("./levels/level1.json", Player()))
+            self.change_state(LevelState("./levels/level1.json", Player(), self.process_level_action))
         elif action == "quit":
+            pygame.quit()
+            sys.exit()
+    
+    def process_level_action(self, action):
+        if action == "next level":
+            self.change_state(self.current_state.next_level())
+        if action == "game finished":
             pygame.quit()
             sys.exit()
