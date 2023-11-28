@@ -8,8 +8,8 @@ class LevelState:
         self.action_handler = action_handler
 
     def setup(self):
-        x = self.current_level.start_pos["x"]
-        y = self.current_level.start_pos["y"]
+        x = self.current_level.start_position["x"]
+        y = self.current_level.start_position["y"]
         self.player.set_position(x, y)
 
     def cleanup(self):
@@ -19,12 +19,13 @@ class LevelState:
         self.player.update()
         self.current_level.update()
         self.player.check_platform_collision(self.current_level.platforms)
-        if (self.player.get_position()[0] > self.current_level.end_point):
+        if (self.player.get_position().x > self.current_level.end_point):
             if self.current_level.next_level:
-                self.action_handler("next level")
+                self.action_handler("next_level")
             else:
-                self.action_handler("game finished")
-
+                self.action_handler("game_finished")
+        if (self.player.get_position().y > self.current_level.bottom):
+            self.action_handler("game_over")
     def draw(self, screen):
         self.current_level.draw(screen)
         screen.blit(self.player.image, self.player.rect)

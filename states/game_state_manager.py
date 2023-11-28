@@ -1,5 +1,8 @@
 import pygame
 import sys
+from states.menu_state import MenuState
+from menus.start_menu import StartMenu
+from menus.game_over_menu import GameOverMenu
 from states.level_state import LevelState
 from game.player import Player
 
@@ -13,6 +16,11 @@ class GameStateManager:
         self.current_state = new_state
         self.current_state.setup()
 
+    def startMenu(self):
+        self.change_state(MenuState(StartMenu(), self.process_menu_action))
+
+    def gameOver(self):
+        self.change_state(MenuState(GameOverMenu(1), self.process_menu_action))
     def update(self, events):
         if self.current_state:
             self.current_state.update(events)
@@ -29,8 +37,11 @@ class GameStateManager:
             sys.exit()
     
     def process_level_action(self, action):
-        if action == "next level":
+        if action == "next_level":
             self.change_state(self.current_state.next_level())
-        if action == "game finished":
-            pygame.quit()
-            sys.exit()
+        if action == "game_finished":
+            print("game finished")
+            self.startMenu()
+        if action == "game_over":
+            print("game_over")
+            self.gameOver()

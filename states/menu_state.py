@@ -1,4 +1,3 @@
-import pygame
 
 class MenuState:
     def __init__(self, menu, action_handler):

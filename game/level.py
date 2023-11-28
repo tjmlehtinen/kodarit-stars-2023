@@ -17,8 +17,9 @@ class Level:
             self.platforms.add(platform)
         
         # Player to starting position
-        self.start_pos = data["player_start"]
+        self.start_position = data["player_start"]
         self.end_point = data["end_point"]
+        self.bottom = data["bottom"]
         self.next_level = data["next_level"]
 
 

@@ -3,8 +3,7 @@
 import pygame
 from game.player import Player
 from states.game_state_manager import GameStateManager
-from states.menu_state import MenuState
-from menus.start_menu import StartMenu
+
 
 # Initialize Pygame
 pygame.init()
@@ -21,7 +20,7 @@ pygame.display.set_caption("Platformer Game")
 game_state_manager = GameStateManager()
 
 # Set state to start menu
-game_state_manager.change_state(MenuState(StartMenu(), game_state_manager.process_menu_action))
+game_state_manager.startMenu()
 
 # Game loop
 clock = pygame.time.Clock()

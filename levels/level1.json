@@ -7,5 +7,6 @@
         {"x": 50, "y": 590, "width": 500, "height": 10}
     ],
     "end_point": 750,
+    "bottom": 600,
     "next_level": "./levels/level2.json"
 }
