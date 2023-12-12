@@ -5,9 +5,10 @@
         {"x": 400, "y": 400, "width": 100, "height": 10},
         {"x": 600, "y": 300, "width": 100, "height": 10},
         {"x": 50, "y": 590, "width": 500, "height": 10},
+        {"x": 900, "y": 500, "width": 100, "height": 10},
         {"x": 700, "y": 590, "width": 800, "height": 10}
     ],
     "end_point": 1500,
     "bottom": 600,
-    "next_level": "./levels/level2.json"
+    "next_level": ""
 }

@@ -7,7 +7,6 @@ from game.platform import Platform
 class Level:
     def __init__(self, level_data):
         self.platforms = pygame.sprite.Group()
-        self.all_sprites = pygame.sprite.Group()
         # Load level data from JSON
         data = load_level_data(level_data)
 
@@ -22,16 +21,20 @@ class Level:
         self.bottom = data["bottom"]
         self.next_level = data["next_level"]
 
+    def setOffset(self, offset):
+        self.end_point += offset.x
+        for platform in self.platforms:
+             platform.rect.topleft += offset
 
     def update(self):
         # Update level-specific logic (e.g., enemy AI).
-        self.all_sprites.update()
+        pass
 
     def draw(self, screen):
         screen.fill((0,0,0))
         # Draw level-specific elements (platforms, enemies).
         self.platforms.draw(screen)
-        self.all_sprites.draw(screen)
+        pygame.draw.line(screen, (255,0,0), (self.end_point, -100), (self.end_point, 1000))
 
 def load_level_data(level_data):
         with open(level_data, "r") as file:
